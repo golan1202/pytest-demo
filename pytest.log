@@ -1,0 +1,4 @@
+INFO     tests.test_circle:test_circle.py:10 Setting up <bound method TestCircle.test_radius of <tests.test_circle.TestCircle object at 0x000002E656AC9450>>
+INFO     tests.test_circle:test_circle.py:14 Tearing down <bound method TestCircle.test_radius of <tests.test_circle.TestCircle object at 0x000002E656AC9450>>
+INFO     tests.test_circle:test_circle.py:10 Setting up <bound method TestCircle.test_perimeter of <tests.test_circle.TestCircle object at 0x000002E656AC9950>>
+INFO     tests.test_circle:test_circle.py:14 Tearing down <bound method TestCircle.test_perimeter of <tests.test_circle.TestCircle object at 0x000002E656AC9950>>
