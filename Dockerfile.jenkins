@@ -1,19 +1,22 @@
-FROM jenkins/jenkins:lts
+FROM jenkins/jenkins:lts-jdk17
 
 USER root
 
-# Install dependencies
+# Fix Debian sources (very important on Windows)
+RUN sed -i 's|http://deb.debian.org|http://ftp.debian.org|g' /etc/apt/sources.list
+
+# Install basic tools
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
       ca-certificates \
       curl \
-      gnupg \
-      lsb-release
+      gnupg && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install Docker CLI (official)
+# Install Docker CLI only (no daemon)
 RUN curl -fsSL https://get.docker.com | sh
 
-# Allow jenkins user to run docker
+# Allow jenkins user to use docker
 RUN usermod -aG docker jenkins
 
 USER jenkins
