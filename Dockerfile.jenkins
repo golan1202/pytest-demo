@@ -2,10 +2,16 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-# Install Docker CLI
+# Install dependencies
 RUN apt-get update && \
-    apt-get install -y docker.io && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y \
+      ca-certificates \
+      curl \
+      gnupg \
+      lsb-release
+
+# Install Docker CLI (official)
+RUN curl -fsSL https://get.docker.com | sh
 
 # Allow jenkins user to run docker
 RUN usermod -aG docker jenkins
