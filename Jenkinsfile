@@ -1,18 +1,14 @@
 pipeline {
     agent any
 
-    triggers {
-        cron('H 2 * * *')
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git 'https://github.com/golan1202/pytest-demo'
             }
         }
 
-        stage('Build Image') {
+        stage('Build Docker Image') {
             steps {
                 sh 'docker build -t pytest-demo .'
             }
@@ -22,13 +18,12 @@ pipeline {
             steps {
                 sh 'docker run --rm -v $WORKSPACE:/app pytest-demo'
             }
-        }
-    }
-
-    post {
-        always {
-            junit 'report.xml'
-            archiveArtifacts artifacts: 'report.html, pytest.log, htmlcov/**'
+            post {
+                always {
+                    junit 'report.xml'
+                    archiveArtifacts artifacts: 'report.html', fingerprint: true
+                }
+            }
         }
     }
 }

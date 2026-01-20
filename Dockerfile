@@ -1,10 +1,14 @@
+# Base image
 FROM python:3.11-slim
 
+# Set working directory
 WORKDIR /app
 
-COPY requirements.txt .
+# Copy project files
+COPY . /app
+
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
-
-CMD ["pytest"]
+# Default command (run pytest)
+CMD ["pytest", "--html=report.html", "--self-contained-html", "--junitxml=report.xml"]
